@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo 'error: ocamlrun was not built correctly'
+exit 1
