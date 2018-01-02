@@ -41,7 +41,7 @@ export -f _test
 # check if we already have ocamlrun built
 # some package managers (yarn) build the same package multiple times so this is
 # why we do this check
-if  _test; then
+if  _test > /dev/null 2>&1; then
   exit 0
 fi
 
