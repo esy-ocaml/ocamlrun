@@ -2,4 +2,4 @@ DIST_EXCLUDE=asmcomp asmrun ocamldoc ocamltest testuite experimental emacs debug
 
 dist:
 	@rm -rf ocaml.tar.gz
-	@tar -cvf ocaml.tar.gz $(DIST_EXCLUDE:%=--exclude %) ocaml
+	@tar -cvzf ocaml.tar.gz $(DIST_EXCLUDE:%=--exclude %) ocaml
