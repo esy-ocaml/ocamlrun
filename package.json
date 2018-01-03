@@ -1,6 +1,6 @@
 {
   "name": "@esy-ocaml/ocamlrun",
-  "version": "4.6.2",
+  "version": "4.6.3",
   "description": "OCaml bytecode runtime",
   "main": "index.js",
   "directories": {
