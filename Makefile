@@ -8,6 +8,7 @@ dist:
 	$(MAKE) compress
 
 compress:
+	@$(MAKE) clean-ocaml clean-lwt
 	@rm -rf ocaml.tar.gz
 	@tar -cvzf ocaml.tar.gz $(DIST_EXCLUDE:%=--exclude %) ocaml
 	@tar -cvzf lwt.tar.gz lwt
