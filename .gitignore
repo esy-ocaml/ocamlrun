@@ -2,3 +2,5 @@ ocaml.tar.gz
 lwt.tar.gz
 esy-ocaml-ocamlrun-*.tgz
 package
+node_modules/
+install/bin/ocaml.bc
