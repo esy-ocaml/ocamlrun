@@ -1,7 +1,7 @@
 build:
-	$(MAKE) -j2 uncompress
-	$(MAKE) build-ocaml
-	$(MAKE) build-lwt
+	$(MAKE) -f Makefile.target -j2 uncompress
+	$(MAKE) -f Makefile.target build-ocaml
+	$(MAKE) -f Makefile.target build-lwt
 
 uncompress: uncompress-ocaml uncompress-lwt
 
