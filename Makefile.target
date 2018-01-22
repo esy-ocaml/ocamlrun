@@ -1,18 +1,19 @@
 build:
-	$(MAKE) -f Makefile.target -j2 uncompress
-	$(MAKE) -f Makefile.target build-ocaml
-	$(MAKE) -f Makefile.target build-lwt
+	@echo "Building OCaml runtime..."
+	@$(MAKE) -f Makefile.target -j2 uncompress
+	@$(MAKE) -f Makefile.target build-ocaml
+	@$(MAKE) -f Makefile.target build-lwt
 
 uncompress: uncompress-ocaml uncompress-lwt
 
 uncompress-ocaml:
-	tar -xzf ocaml.tar.gz
+	@tar -xzf ocaml.tar.gz
 
 uncompress-lwt:
-	tar -xzf lwt.tar.gz
+	@tar -xzf lwt.tar.gz
 
 build-ocaml:
-	bash build-ocaml.sh
+	@bash build-ocaml.sh
 
 build-lwt:
-	bash build-lwt.sh
+	@bash build-lwt.sh
