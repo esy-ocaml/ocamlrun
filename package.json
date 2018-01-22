@@ -11,7 +11,7 @@
     "ocamlrun": "install/bin/ocamlrun"
   },
   "scripts": {
-    "postinstall": "bash ./postinstall.sh"
+    "postinstall": "make -f Makefile.target build"
   },
   "repository": {
     "type": "git",

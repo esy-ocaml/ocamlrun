@@ -1,0 +1,18 @@
+build:
+	$(MAKE) -j2 uncompress
+	$(MAKE) build-ocaml
+	$(MAKE) build-lwt
+
+uncompress: uncompress-ocaml uncompress-lwt
+
+uncompress-ocaml:
+	tar -xzf ocaml.tar.gz
+
+uncompress-lwt:
+	tar -xzf lwt.tar.gz
+
+build-ocaml:
+	bash build-ocaml.sh
+
+build-lwt:
+	bash build-lwt.sh

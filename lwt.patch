@@ -1,0 +1,36 @@
+diff --git a/src/core/jbuild b/src/core/jbuild
+index fbc594f..17a3a3f 100644
+--- a/src/core/jbuild
++++ b/src/core/jbuild
+@@ -6,5 +6,4 @@
+   (synopsis "Monadic promises and concurrent I/O")
+   (wrapped false)
+   (ocamlopt_flags (:standard (:include flambda.flag)))
+-  (libraries (bytes result))
+   (flags (:standard -w +A-29))))
+diff --git a/src/unix/config/discover.ml b/src/unix/config/discover.ml
+index 8e289a8..831b750 100644
+--- a/src/unix/config/discover.ml
++++ b/src/unix/config/discover.ml
+@@ -307,7 +307,7 @@ CAMLprim value lwt_test()
+    | Compilation                                                     |
+    +-----------------------------------------------------------------+ *)
+ 
+-let ocamlc = ref "ocamlfind ocamlc"
++let ocamlc = ref "ocamlc"
+ let ocamlc_config = ref ""
+ let lwt_config = ref ""
+ let ext_obj = ref ".o"
+diff --git a/src/unix/jbuild b/src/unix/jbuild
+index 01f976b..d88575b 100644
+--- a/src/unix/jbuild
++++ b/src/unix/jbuild
+@@ -39,7 +39,7 @@
+             unix_c_library_flags.sexp
+             lwt_config.h
+             lwt_config.ml))
+-  (deps (config/discover.exe ocamlc_config lwt_config))
++  (deps (config/discover.bc ocamlc_config lwt_config))
+   (action (run ${<}
+     -ocamlc-config ocamlc_config      ;; generated above
+     -lwt-config lwt_config

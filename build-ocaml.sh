@@ -7,6 +7,14 @@ _do () {
   set -e
   set -o pipefail
 
+  createOCamlrunWrapper () {
+    local filename="$PREFIX/bin/$2"
+    printf "#!/bin/bash\\n" > "$filename"
+    printf "export OCAMLLIB='%s/lib/ocaml'\\n" "$PREFIX" >> "$filename"
+    printf '%s/bin/ocamlrun %s/bin/%s "$@"' "$PREFIX" "$PREFIX" "$1" >> "$filename"
+    chmod +x "$PREFIX/bin/$2"
+  }
+
   ./configure --no-native-compiler --no-ocamldoc --no-debugger --no-graph --prefix "$PREFIX"
 
   make -j -C byterun
@@ -20,14 +28,31 @@ _do () {
   make -j utils/misc.cmo
   make -j -C tools ocamlmklib
 
-  make -j -C otherlibs/unix libunix.a
-  make -j -C otherlibs/systhreads libthreads.a
+  cp boot/ocamlc ocamlc
+  make -j -C otherlibs/unix
+  make -j -C otherlibs/systhreads
+  make -j -C otherlibs/bigarray
+  make -j -C otherlibs/str
 
-  mkdir -p "$PREFIX/lib/ocaml" "$PREFIX/bin"
+  mkdir -p "$PREFIX/lib/ocaml/stublibs" "$PREFIX/bin"
   echo "$PREFIX/lib/ocaml" > "$PREFIX/lib/ocaml/ld.conf"
-  cp byterun/ocamlrun "$PREFIX/bin"
+  make -j -C byterun install
+  make -j -C stdlib install
+  make -j -C otherlibs/unix install
+  make -j -C otherlibs/systhreads install
+  make -j -C otherlibs/bigarray install
+  make -j -C otherlibs/str install
+  cp boot/ocamlc "$PREFIX/bin/ocamlc.bc"
+  cp boot/ocamldep "$PREFIX/bin/ocamldep.bc"
+  cp tools/ocamlmklib "$PREFIX/bin"
+
   cp otherlibs/unix/dllunix.so "$PREFIX/lib/ocaml"
   cp otherlibs/systhreads/dllthreads.so "$PREFIX/lib/ocaml"
+
+  createOCamlrunWrapper "ocamlc.bc" "ocamlc"
+  createOCamlrunWrapper "ocamldep.bc" "ocamldep"
+  createOCamlrunWrapper "ocaml.bc" "ocaml"
+
   chmod +x "$PREFIX/bin/ocamlrun"
 }
 export -f _do
@@ -44,8 +69,6 @@ export -f _test
 if  _test > /dev/null 2>&1; then
   exit 0
 fi
-
-tar -xzf ocaml.tar.gz
 
 LOG=$(cd ocaml && _do)
 if [ $? -ne 0 ]; then
