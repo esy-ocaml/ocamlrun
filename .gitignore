@@ -4,3 +4,5 @@ esy-ocaml-ocamlrun-*.tgz
 package
 node_modules/
 install/bin/ocaml.bc
+install/bin/jbuilder.bc
+ocaml-install

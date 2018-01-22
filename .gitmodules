@@ -3,7 +3,7 @@
 	url = https://github.com/ocaml/ocaml.git
 [submodule "jbuilder"]
 	path = jbuilder
-	url = https://github.com/ocaml/dune
+	url = https://github.com/ocaml/dune.git
 [submodule "lwt"]
 	path = lwt
 	url = https://github.com/ocsigen/lwt
