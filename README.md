@@ -1,7 +1,7 @@
 # @esy-ocaml/ocamlrun
 
 This repository contains an npm package which wraps the bytecode VM portion of
-the OCaml toolchain as an npm package.
+the OCaml toolchain + a set of dynamically loaded libs as an npm package.
 
 The idea is to be able to distribute bytecode compiled OCaml programs on npm and
 have them executed using this package.
@@ -18,5 +18,5 @@ it takes around 18s to compile the `ocamlrun`.
 
 ## TODO
 
+- [ ] Support Windows
 - [ ] CI
-- [ ] Figure out how to handle `Unix` module in a portable way
