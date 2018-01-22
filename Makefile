@@ -6,7 +6,6 @@ dist:
 	$(MAKE) install/bin/ocaml.bc
 	$(MAKE) install/bin/jbuilder.bc
 	$(MAKE) compress
-
 compress:
 	@$(MAKE) clean-ocaml clean-lwt
 	@rm -rf ocaml.tar.gz
@@ -22,7 +21,11 @@ clean-ocaml:
 clean-lwt:
 	(cd lwt && git co -- . && git clean -fdx)
 
-clean: clean-ocaml clean-lwt
+clean-jbuilder:
+	(cd jbuilder && git co -- . && git clean -fdx)
+
+clean:
+	$(MAKE) -j clean-ocaml clean-lwt clean-jbuilder
 	git co -- .
 	git clean -fdx
 
@@ -39,7 +42,8 @@ install/bin/ocaml.bc:
 	esy ocamlstripdebug $(PWD)/ocaml-install/bin/ocaml $(@)
 
 install/bin/jbuilder.bc: install/bin/ocaml.bc
+	cd jbuilder && patch -p1 < ../jbuilder.patch
 	cd jbuilder \
 		&& PATH=$(PWD)/ocaml-install/bin:$(PATH) ocaml bootstrap.ml \
 		&& PATH=$(PWD)/ocaml-install/bin:$(PATH) ./boot.exe -j 4
-	esy ocamlstripdebug ocaml/ocaml $(@)
+	esy ocamlstripdebug jbuilder/_build/default/bin/main.bc $(@)

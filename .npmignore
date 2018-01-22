@@ -1,2 +1,4 @@
 ocaml
 lwt
+jbuilder
+ocaml-install

@@ -1,0 +1,11 @@
+diff --git a/bin/jbuild b/bin/jbuild
+index 978fa8c..a75f510 100644
+--- a/bin/jbuild
++++ b/bin/jbuild
+@@ -1,5 +1,6 @@
+ (executable
+  ((name        main)
+   (public_name jbuilder)
++  (modes (byte))
+   (libraries (unix jbuilder jbuilder_cmdliner))
+   (preprocess no_preprocessing)))
