@@ -12,22 +12,24 @@ compress:
 	@tar -cvzf ocaml.tar.gz $(DIST_EXCLUDE:%=--exclude %) ocaml
 	@tar -cvzf lwt.tar.gz lwt
 
-publish: dist
+publish:
+	@$(MAKE) clean
+	@$(MAKE) dist
 	@npm publish
 
 clean-ocaml:
-	(cd ocaml && git clean -fdx)
+	@(cd ocaml && git clean -fdx)
 
 clean-lwt:
-	(cd lwt && git co -- . && git clean -fdx)
+	@(cd lwt && git co -- . && git clean -fdx)
 
 clean-jbuilder:
-	(cd jbuilder && git co -- . && git clean -fdx)
+	@(cd jbuilder && git co -- . && git clean -fdx)
 
 clean:
-	$(MAKE) -j clean-ocaml clean-lwt clean-jbuilder
-	git co -- .
-	git clean -fdx
+	@$(MAKE) -j clean-ocaml clean-lwt clean-jbuilder
+	@git co -- .
+	@git clean -fdx
 
 install/bin/ocaml.bc:
 	(cd ocaml \
