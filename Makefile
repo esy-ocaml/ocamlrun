@@ -3,9 +3,9 @@ DIST_EXCLUDE=asmcomp asmrun ocamldoc ocamltest testuite experimental emacs debug
 dist:
 	esy install
 	esy build
-	$(MAKE) install/bin/ocaml.bc
 	$(MAKE) install/bin/jbuilder.bc
 	$(MAKE) compress
+
 compress:
 	@$(MAKE) clean-ocaml clean-lwt
 	@rm -rf ocaml.tar.gz
@@ -31,7 +31,8 @@ clean:
 	@git co -- .
 	@git clean -fdx
 
-install/bin/ocaml.bc:
+
+ocaml-install:
 	(cd ocaml \
 		&& ./configure \
 			--no-native-compiler \
@@ -41,9 +42,8 @@ install/bin/ocaml.bc:
 			--prefix $(PWD)/ocaml-install \
 		&& make -j world \
 		&& make install)
-	esy ocamlstripdebug $(PWD)/ocaml-install/bin/ocaml $(@)
 
-install/bin/jbuilder.bc: install/bin/ocaml.bc
+install/bin/jbuilder.bc: ocaml-install
 	cd jbuilder && patch -p1 < ../jbuilder.patch
 	cd jbuilder \
 		&& PATH=$(PWD)/ocaml-install/bin:$(PATH) ocaml bootstrap.ml \
