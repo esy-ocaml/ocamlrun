@@ -6,6 +6,7 @@ node_modules/
 install/bin/ocaml.bc
 install/bin/jbuilder.bc
 ocaml-install
+ocaml-install.log
 install/bin/ocaml
 install/bin/ocamlc
 install/bin/ocamlc.byte

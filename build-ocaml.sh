@@ -10,7 +10,6 @@ _do () {
   createOCamlrunWrapper () {
     local filename="$PREFIX/bin/$2"
     printf "#!/bin/bash\\n" > "$filename"
-    printf "export OCAMLLIB='%s/lib/ocaml'\\n" "$PREFIX" >> "$filename"
     printf '%s/bin/ocamlrun %s/bin/%s "$@"' "$PREFIX" "$PREFIX" "$1" >> "$filename"
     chmod +x "$PREFIX/bin/$2"
   }

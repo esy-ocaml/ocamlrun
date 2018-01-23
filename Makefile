@@ -1,4 +1,4 @@
-DIST_EXCLUDE=asmcomp asmrun ocamldoc ocamltest testuite experimental emacs debugger
+DIST_EXCLUDE=asmrun ocamldoc testuite experimental emacs debugger
 
 dist:
 	esy install
@@ -40,8 +40,9 @@ ocaml-install:
 			--no-debugger \
 			--no-graph \
 			--prefix $(PWD)/ocaml-install \
-		&& make -j world \
+		&& make -j world 2>&1 > $(PWD)/ocaml-install.log \
 		&& make install)
+	$(MAKE) clean-ocaml
 
 install/bin/jbuilder.bc: ocaml-install
 	cd jbuilder && patch -p1 < ../jbuilder.patch
